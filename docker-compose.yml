@@ -1,0 +1,43 @@
+services:
+
+  db:
+    image: mysql:8.4
+    container_name: intent-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-intentaudit}
+      MYSQL_DATABASE:      intent_audit
+      MYSQL_USER:          auditor
+      MYSQL_PASSWORD:      ${DB_PASSWORD:-intentaudit}
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1",
+             "-u", "auditor", "--password=${DB_PASSWORD:-intentaudit}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: intent-backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST:     db
+      DB_PORT:     3306
+      DB_USER:     auditor
+      DB_PASSWORD: ${DB_PASSWORD:-intentaudit}
+      DB_NAME:     intent_audit
+    ports:
+      - "8000:8000"
+
+volumes:
+  db_data:

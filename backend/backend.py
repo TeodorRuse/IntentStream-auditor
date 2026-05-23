@@ -23,13 +23,14 @@ from fastapi import FastAPI, HTTPException, Query, Path
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 
-# ─────────────────────────── DB CONFIG ───────────────────────────────────────
+# ─────────────────────────── DB CONFIG (from env) ────────────────────────────
+import os
 DB_CONFIG = dict(
-    host     = "127.0.0.1",
-    port     = 3306,
-    user     = "root",
-    password = "",          # ← set your password
-    database = "intent_audit",
+    host     = os.environ.get("DB_HOST",     "127.0.0.1"),
+    port     = int(os.environ.get("DB_PORT", "3306")),
+    user     = os.environ.get("DB_USER",     "root"),
+    password = os.environ.get("DB_PASSWORD", ""),
+    database = os.environ.get("DB_NAME",     "intent_audit"),
 )
 POOL_SIZE = 5
 # ──────────────────────────────────────────────────────────────────────────────

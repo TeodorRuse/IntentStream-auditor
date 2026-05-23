@@ -28,7 +28,7 @@ from mysql.connector import Error as MySQLError
 DB_HOST     = "127.0.0.1"
 DB_PORT     = 3306
 DB_USER     = "root"
-DB_PASSWORD = ""          # set your password here
+DB_PASSWORD = "intentaudit"          # set your password here
 DB_NAME     = "intent_audit"
 # ──────────────────────────────────────────────────────────────────────────────
 

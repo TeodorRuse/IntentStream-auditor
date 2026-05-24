@@ -1,0 +1,282 @@
+/* ╔═══════════════════════════════════════════════════════════════════════╗
+   ║  IntentStream — Ocean Drive design system                             ║
+   ║  Silkscreen (display) + DM Mono (body) on Miami night palette        ║
+   ╚═══════════════════════════════════════════════════════════════════════╝ */
+
+:root {
+  /* ── BACKGROUNDS ─────────────────────────────────────────────────── */
+  --bg:           #1a0f2e;
+  --bg-2:         #241638;
+  --paper:        #2d1b4e;
+  --paper-2:      #3a2362;
+  --hover:        #3d2566;
+
+  /* ── BORDERS ─────────────────────────────────────────────────────── */
+  --line:         #4a2d7a;
+  --line-2:       #6b3fa0;
+  --line-dim:     #2a1846;
+
+  /* ── ACCENTS ─────────────────────────────────────────────────────── */
+  --pink:         #ff3d8f;
+  --pink-2:       #ff5fa3;
+  --pink-dim:     #b8266b;
+  --pink-fog:     rgba(255, 61, 143, 0.15);
+  --pink-mist:    rgba(255, 61, 143, 0.06);
+
+  --teal:         #00e5ff;
+  --teal-2:       #4df0ff;
+  --teal-dim:     #00a8bd;
+  --teal-fog:     rgba(0, 229, 255, 0.12);
+  --teal-mist:    rgba(0, 229, 255, 0.05);
+
+  --orange:       #ff8c42;
+  --orange-2:     #ffa869;
+  --orange-dim:   #cc6428;
+  --orange-fog:   rgba(255, 140, 66, 0.15);
+
+  --yellow:       #ffd23f;
+  --red:          #ff4d6d;
+  --green-ok:     #50fa7b;
+
+  /* ── TEXT ────────────────────────────────────────────────────────── */
+  --ink:          #f0e6ff;
+  --ink-dim:      #a896c4;
+  --ink-faint:    #6b5a87;
+  --ink-trace:    #4a3d65;
+
+  /* ── GLOW (neon) ─────────────────────────────────────────────────── */
+  --glow-pink:    0 0 12px rgba(255, 61, 143, 0.6),
+                  0 0 24px rgba(255, 61, 143, 0.25);
+  --glow-pink-sm: 0 0 6px rgba(255, 61, 143, 0.5);
+  --glow-teal:    0 0 12px rgba(0, 229, 255, 0.55),
+                  0 0 24px rgba(0, 229, 255, 0.25);
+  --glow-teal-sm: 0 0 6px rgba(0, 229, 255, 0.45);
+  --glow-orange:  0 0 10px rgba(255, 140, 66, 0.5);
+  --text-glow-pink: 0 0 8px rgba(255, 61, 143, 0.6);
+  --text-glow-teal: 0 0 8px rgba(0, 229, 255, 0.55);
+
+  /* ── FONTS ───────────────────────────────────────────────────────── */
+  --font-display: 'Silkscreen', ui-monospace, monospace;
+  --font-mono:    'DM Mono', ui-monospace, 'SF Mono', monospace;
+
+  /* ── LAYOUT ──────────────────────────────────────────────────────── */
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --sidebar-w: 200px;
+  --statsbar-h: 56px;
+
+  --transition: 120ms ease;
+  --transition-slow: 260ms ease;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #root { height: 100%; overflow: hidden; }
+
+body {
+  background: var(--bg);
+  background-image:
+    radial-gradient(ellipse at top right, rgba(255, 61, 143, 0.08), transparent 50%),
+    radial-gradient(ellipse at bottom left, rgba(0, 229, 255, 0.05), transparent 50%);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 2px,
+    rgba(0, 229, 255, 0.025) 2px, rgba(0, 229, 255, 0.025) 3px
+  );
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: screen;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: var(--radius-sm);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--pink-dim);
+  box-shadow: var(--glow-pink-sm);
+}
+* { scrollbar-width: thin; scrollbar-color: var(--line) var(--bg); }
+
+::selection { background: var(--pink); color: var(--bg); }
+::-moz-selection { background: var(--pink); color: var(--bg); }
+
+button {
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  background: transparent;
+  color: var(--ink-dim);
+  border: 1px solid var(--line);
+  padding: 5px 12px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition);
+  letter-spacing: 0.02em;
+}
+button:hover {
+  border-color: var(--pink);
+  color: var(--ink);
+  background: var(--pink-mist);
+  box-shadow: var(--glow-pink-sm);
+}
+button:active { transform: translateY(1px); }
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  border-color: var(--line);
+}
+button:disabled:hover {
+  background: transparent;
+  box-shadow: none;
+  color: var(--ink-dim);
+}
+button.primary {
+  background: var(--pink);
+  color: var(--bg);
+  border-color: var(--pink);
+  font-family: var(--font-display);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  padding: 6px 14px;
+  box-shadow: var(--glow-pink-sm);
+}
+button.primary:hover {
+  background: var(--pink-2);
+  border-color: var(--pink-2);
+  box-shadow: var(--glow-pink);
+  color: var(--bg);
+}
+button.ghost {
+  border-color: transparent;
+  padding: 4px 8px;
+}
+button.ghost:hover {
+  border-color: var(--line);
+  box-shadow: none;
+}
+button.danger:hover {
+  border-color: var(--red);
+  color: var(--red);
+  background: rgba(255, 77, 109, 0.08);
+  box-shadow: 0 0 8px rgba(255, 77, 109, 0.4);
+}
+
+input, textarea, select {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  border-radius: var(--radius-sm);
+  padding: 5px 9px;
+  outline: none;
+  transition: all var(--transition);
+}
+input::placeholder, textarea::placeholder { color: var(--ink-faint); }
+input:focus, textarea:focus, select:focus {
+  border-color: var(--pink);
+  box-shadow: var(--glow-pink-sm);
+}
+
+.display { font-family: var(--font-display); letter-spacing: 0.03em; }
+.mono    { font-family: var(--font-mono); }
+.tnum    { font-variant-numeric: tabular-nums; }
+
+.text-pink   { color: var(--pink); }
+.text-teal   { color: var(--teal); }
+.text-orange { color: var(--orange); }
+.text-dim    { color: var(--ink-dim); }
+.text-faint  { color: var(--ink-faint); }
+
+.glow-pink   { text-shadow: var(--text-glow-pink); }
+.glow-teal   { text-shadow: var(--text-glow-teal); }
+
+.brand-shadow { text-shadow: 1.5px 1.5px 0 var(--teal-dim); }
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; box-shadow: var(--glow-teal-sm); }
+  50%      { opacity: 0.55; box-shadow: 0 0 3px rgba(0, 229, 255, 0.3); }
+}
+.live-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--teal);
+  box-shadow: var(--glow-teal-sm);
+  animation: pulse-glow 1.8s ease-in-out infinite;
+}
+.live-dot.off {
+  background: var(--ink-faint);
+  box-shadow: none;
+  animation: none;
+}
+
+.section-label {
+  font-family: var(--font-display);
+  font-size: 9px;
+  color: var(--orange);
+  letter-spacing: 0.08em;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.section-label::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--orange);
+  box-shadow: var(--glow-orange);
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-display);
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  padding: 2px 6px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+  color: var(--ink-faint);
+  line-height: 1.4;
+}
+.tag.pink { color: var(--pink); border-color: var(--pink-dim); background: var(--pink-mist); }
+.tag.teal { color: var(--teal); border-color: var(--teal-dim); background: var(--teal-mist); }
+.tag.orange { color: var(--orange); border-color: var(--orange-dim); background: var(--orange-fog); }
+
+.divider {
+  height: 1px;
+  border: 0;
+  border-top: 1px dotted var(--line);
+  margin: 12px 0;
+}
+
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(255, 61, 143, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 61, 143, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(2px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fade-in 200ms ease-out; }
+
+.react-flow__background { background: transparent !important; }

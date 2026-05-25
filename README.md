@@ -11,6 +11,7 @@ IntentStream/
 │   ├── backend.py
 │   ├── Dockerfile
 │   └── requirements.txt
+├─── frontend/
 └── adb_poller/
     ├── adb_poller              ← standalone Linux x86-64 ELF executable
     └── adb_poller.py           ← source (rebuild with pyinstaller if needed)
